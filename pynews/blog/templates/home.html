@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+	
+		<title>{{username}}-主页－博客</title>
+		<meta name="description" content="">
+		<meta name="author" content="邓秋华">
+
+		{% include 'js.html' %}
+
+		<style type="text/css">
+			.bloglist{ margin-bottom: 7px; border-bottom: dashed 1px #777;}
+			.username{color: #FFFFFF; margin: 60px 3px;  margin-left: 40px;  margin-top: -160px;  position: absolute;}
+		</style>
+		
+	</head>
+
+	<body>
+		<div>
+			
+		    {% include "header.html" %}
+		    <div class="clear" style=" margin-top: 20px;">&nbsp;</div>
+
+		    <div class="container">
+		    	<div style="margin-bottom:6px;">
+		    		<div><img class="img-polaroid" style="max-height:190px; width:100%;" src="/static/images/xingzuo.jpg" /></div>
+		    		<div class="username">
+		    			<h1><span>{{username}}的主页</span></h1>
+		    		</div>
+		    	</div>
+
+		    	<div class="row">
+		    		<div class="span12">
+		    			    <div class="well">
+		    			    	
+		    			    	{% if bloglist %}
+		    			    	{% for item in bloglist %}
+		    			    	<div class="bloglist">
+		    			    		<table style="width: 100%;">
+		    			    			<tr>
+		    			    				<td>
+		    			    					<h4>
+				    			    				<a href="/art_{{item.id}}" title="{{item.title}}" target="_blank">{{item.title}}</a>		    			    						    			    			
+				    			    			</h4>
+		    			    				</td>
+		    			    				<td style="width: 200px;float:right;">
+		    			    					<span style="color:#ccc;">{{item.createtime}}</span>&nbsp;
+		    			    					{% ifequal item.userid userinfo.id %}
+		    			    					<a href="/new/art_{{item.id}}"><i class="icon-edit"></i>编辑</a>&nbsp;
+		    			    					<a href="/delete/art_{{item.id}}" onclick="return confirm('您确定要删除吗？');"><i class="icon-remove"></i>删除</a>
+		    			    					{% endifequal %}
+		    			    				</td>
+		    			    			</tr>
+		    			    			<tr>
+			    			    			<td colspan="2">
+			    			    				<p>{{item.content|slice:"120"}}&nbsp;［<a href="/art_{{item.id}}"  target="_blank">详细</a>］</p>
+			    			    			</td><td></td>
+		    			    			</tr>
+		    			    		</table>
+		    			    	</div>
+		    			    	{% endfor %}
+		    			    	{% endif %}
+						    	
+						    </div>
+		    		</div>
+		    		
+		    	</div>
+		    </div>
+		    
+			{% include "footer.html" %}
+
+		</div>
+		
+	</body>
+</html>

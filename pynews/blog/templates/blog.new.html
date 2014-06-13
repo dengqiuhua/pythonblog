@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+	
+		<title>新建－博客</title>
+		<meta name="description" content="">
+		<meta name="author" content="邓秋华">
+
+		{% include 'js.html' %}
+		<script type="text/javascript" src="/static/tinymce/tinymce.min.js"></script>
+
+		<style type="text/css">
+			.bloglist{ margin-bottom: 7px; border-bottom: dashed 1px #777;}
+			.control-label{ width:70px;}
+			.controls{ margin-left:75px;}
+		</style>
+		
+	</head>
+
+	<body>
+		<div>
+			{% include "header.html" %}
+		    
+		    <div class="clear" style=" margin-top: 50px;">&nbsp;</div>
+		    
+		    <div class="container">
+		    	<div class="row">
+		    		<div class="span9">
+
+		    				{% if showtip %}
+		    			    {% if status %}
+		    			    <div class="alert alert-success">
+			    				<button type="button" class="close" data-dismiss="alert">&times;</button><span>操作成功</span>
+			    			</div>
+		    			    {% else %}
+		    			    <div class="alert alert-error">
+			    				<button type="button" class="close" data-dismiss="alert">&times;</button>
+			    				{% for m in msg%}
+			    				<span>{{m}}</span>
+			    				{% endfor %}
+			    			</div>
+		    			    {% endif %}
+		    			    {% endif %}
+		    			    <div class="well">
+		    			    	<form class="form-horizontal" action="" method="post" onsubmit="return validate();">
+								  <div class="control-group">
+								    <label class="control-label" style="width: 50px;" for="inputTitle">标题</label>
+								    <div class="controls" style="margin-left: 55px;">
+								      <input type="text" name="title" class=" span7" id="inputTitle" value="{{title}}" placeholder="请输入标题...">
+								    </div>
+								  </div>
+								  <div class="control-group">
+								    <label class="control-label" style="width: 50px;" for="inputContent">内容</label>
+								    <div class="controls" style="margin-left: 55px;">
+								      <textarea id="inputContent" name="content" class="span8" rows="17">{{content}}</textarea>
+								    </div>
+								  </div>
+								  
+								   <div class="control-group">
+									<div class="controls">
+										<button type="submit" class="btn">
+											{% if id %}保存{% else %} 发布 {% endif %}											
+										</button>
+										<input type="hidden" name="userid" value="{{userinfo.id}}" />
+										<input type="hidden" name="id" value="{{id}}" />
+										{% csrf_token %}
+									</div>
+									</div>
+
+								</form>
+						    	
+						    </div>
+		    		</div>
+		    		<div class="span3">
+		    			<div class="well" style="padding:0px;">
+		    				<div class="alert-info"><h3 style="margin:0px;">我最近的博客</h3></div>
+		    				<div>
+		    				{% if bloglist %}
+			    			<ul>
+			    				{% for blog in bloglist %}
+			    				<li><a href="/art_{{blog.id}}" title="{{blog.title}}" target="_blank">{{blog.title|slice:"13"}}</a></li>			    				
+			    				{% endfor %}
+			    			</ul>		    				
+		    			    {% endif %}
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		    </div>
+		    
+			{% include "footer.html" %}
+		</div>
+		
+		<script type="text/javascript">
+			//表单验证
+			var validate=function(){
+				if(document.getElementById("inputTitle").value==""){
+					alert("标题不能为空");
+					return false;
+				}
+				if(document.getElementById("inputContent").value==""){
+					alert("内容不能为空");
+					return false;
+				}
+				return true;
+			}
+
+			//文本编辑器
+			tinymce.init({
+			    selector: "textarea"
+			 });
+			
+		</script>
+	</body>
+</html>

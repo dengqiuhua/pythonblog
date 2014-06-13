@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+	
+		<title>{{data.title}}－博客</title>
+		<meta name="description" content="">
+		<meta name="author" content="邓秋华">
+
+		{% include 'js.html' %}
+
+		<style type="text/css">
+			.bloglist{ margin-bottom: 7px; border-bottom: dashed 1px #777;}
+		</style>
+		
+	</head>
+
+	<body>
+		<div>
+			
+		    {% include "header.html" %}
+		    <div class="clear" style=" margin-top: 50px;">&nbsp;</div>
+		    
+		    <div class="container">
+		    	<div class="row">
+		    		<div class="span12">
+		    			    <div class="well">
+		    			    	<div class="bloglist">
+		    			    		<div style="text-align: center">
+		    			    			<h3>{{data.title}}</h3>	
+
+		    			    			<p>作者：{% if data.author %}
+		    			    				<a href="/u/{{data.author}}">{{data.author}}</a>
+		    			    				{% else %}
+		    			    				匿名{% endif %}
+		    			    				&nbsp;<span>日期：{{data.createtime}}</span>
+		    			    				&nbsp;<span>浏览：{{data.viewcount}}</span>
+		    			    				{% ifequal data.userid userinfo.id %}
+	    			    					&nbsp;<a href="/new/art_{{data.id}}"><i class="icon-edit"></i>编辑</a>
+	    			    					&nbsp;<a href="/delete/art_{{data.id}}" onclick="return confirm('您确定要删除吗？');"><i class="icon-remove"></i>删除</a>
+	    			    					{% endifequal %}
+		    			    			</p>				    			
+		    			    		</div>
+		    			    	</div>
+		    			    	<div>
+		    			    		{% autoescape off %}
+		    			    			{{data.content}}
+		    			    		{% endautoescape %}
+		    			    	</div>
+		    			    	<!-- JiaThis Button BEGIN -->
+								<script type="text/javascript" >
+								var jiathis_config={
+									siteNum:5,
+									sm:"tsina,qzone,weixin,tqq,renren",
+									summary:"",
+									showClose:true,
+									shortUrl:false,
+									hideMore:false
+								}
+								</script>
+								<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jiathis_r.js?btn=r.gif&move=1" charset="utf-8"></script>
+								<!-- JiaThis Button END -->
+
+						    	
+						    </div>
+		    		</div>
+		    		
+		    	</div>
+		    </div>
+		    
+			{% include "footer.html" %}
+
+		</div>
+		
+	</body>
+</html>

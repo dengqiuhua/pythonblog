@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+	
+		<title>首页－博客</title>
+		<meta name="description" content="">
+		<meta name="author" content="邓秋华">
+
+		{% include 'js.html' %}
+		<style type="text/css">
+			.bloglist{ margin-bottom: 7px; border-bottom: dashed 1px #777;}
+		</style>
+		
+	</head>
+
+	<body>
+		<div>
+			
+		    {% include "header.html" %}
+		    <div class="clear" style=" margin-top: 50px;">&nbsp;</div>
+		    
+		    <div class="container">
+		    	<div class="row">
+		    		<div class="span8">
+		    			    <div class="well">
+		    			    	
+		    			    	{% if bloglist %}
+		    			    	{% for item in bloglist %}
+		    			    	<div class="bloglist">
+		    			    		<table style="width: 100%;">
+		    			    			<tr>
+		    			    				<td>
+		    			    					<h4>
+				    			    				<a href="/art_{{item.id}}" title="{{item.title}}" target="_blank">{{item.title}}</a>		    			    						    			    			
+				    			    			</h4>
+		    			    				</td>
+		    			    				<td style="width: 90px; color:#ccc;float:right;">
+		    			    					<span>{{item.createtime}}</span>
+		    			    				</td>
+		    			    			</tr>
+		    			    			<tr>
+			    			    			<td colspan="2">
+			    			    				<p>{{item.content|slice:"120"}}&nbsp;［<a href="/art_{{item.id}}"  target="_blank">详细</a>］</p>
+			    			    			</td><td></td>
+		    			    			</tr>
+		    			    		</table>
+		    			    	</div>
+		    			    	{% endfor %}
+		    			    	<div class="pagination">
+								    <ul>
+								    	{% ifequal page 1%}
+								    	<li class="disabled"><a href="">上一页</a></li>
+								    	{% else %}
+								    	<li><a href="/p_{{page|add:'-1'}}">上一页</a></li>
+								    	{% endifequal %}
+
+								    	{% for i in pagecount %}
+								    
+								    	<li class="{% ifequal i page %}active {% endifequal %}"><a href="/p_{{i}}">{{i}}</a></li>
+								     	{% endfor %}
+
+								     	{% ifequal page pagecount|length %}
+								    	<li class="disabled"><a href="">下一页</a></li>
+								    	{% else %}
+								    	<li><a href="/p_{{page|add:'1'}}">下一页</a></li>
+								    	{% endifequal %}
+								    </ul>
+								</div>
+
+		    			    	{% endif %}
+						    	
+						    </div>
+		    		</div>
+		    		<div class="span4">
+		    			<div class="well" style="padding:0px;">
+		    				<div class="alert-info"><h3 style="margin:0px;">博客排行</h3></div>
+		    				<div>
+		    				{% if hotblog %}
+			    			<ul>
+			    				{% for blog in hotblog %}
+			    				<li><a href="/art_{{blog.id}}" title="{{blog.title}}" target="_blank">{{blog.title|slice:"19"}}</a></li>			    				
+			    				{% endfor %}
+			    			</ul>		    				
+		    			    {% endif %}
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		    </div>
+		    
+			{% include "footer.html" %}
+
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,33 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+     
+      <a href="/" class="brand">博客 blog</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li class="{% ifequal nav 1%}active{% endifequal %}">
+            <a href="/">首页</a>
+          </li>
+          <li class="{% ifequal nav 2%}active{% endifequal %}">
+            <a href="/new">新建</a>
+          </li>
+          {% if userinfo %}
+          <li class="{% ifequal nav 3%}active{% endifequal %}">
+            <a href="/u/{{userinfo.username}}">{{userinfo.username}}</a>
+          </li>
+          <li class="">
+            <a href="/loginout">退出</a>
+          </li>
+          {% else %}
+          <li class="{% ifequal nav 3%}active{% endifequal %}">
+            <a href="/regester">注册</a>
+          </li>
+          <li class="{% ifequal nav 4%}active{% endifequal %}">
+            <a href="/login">登入</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+	
+		<title>注册－博客</title>
+		<meta name="description" content="">
+		<meta name="author" content="邓秋华">
+
+		{% include 'js.html' %}
+
+		<style type="text/css">
+			.bloglist{ margin-bottom: 7px; border-bottom: dashed 1px #777;}
+		</style>
+		
+	</head>
+
+	<body>
+		<div>
+			{% include "header.html" %}
+		    
+		    <div class="clear" style=" margin-top: 50px;">&nbsp;</div>
+		    
+		    <div class="container">
+		    	<div class="row">
+		    		
+		    		<div class="span12">
+		    			    <div class="well">
+		    			    	<table>
+		    			    		<tr>
+		    			    			<td>
+				    			    	<form class="form-horizontal" action="" method="post" onsubmit="return validate();">
+										  <div class="control-group">
+										    <label class="control-label" for="inputEmail">用户名</label>
+										    <div class="controls">
+										      <input type="text" name="username" id="inputEmail" placeholder="用户名" value="{{username}}">
+										    </div>
+										  </div>
+										  <div class="control-group">
+										    <label class="control-label" for="inputPassword">密码</label>
+										    <div class="controls">
+										      <input type="password" name="password" id="inputPassword" placeholder="密码" value="{{password}}">
+										    </div>
+										  </div>
+										  <div class="control-group">
+										    <label class="control-label" for="inputPassword2">确认密码</label>
+										    <div class="controls">
+										      <input type="password" name="password2" id="inputPassword2" placeholder="确认密码">
+										    </div>
+										  </div>
+										  <div class="control-group">
+										    <div class="controls">
+										      
+										      <button type="submit" class="btn">注册</button>&nbsp;
+										      <a href="/login">登入</a>
+										      {% csrf_token %}
+										    </div>
+										  </div>
+										</form>
+									</td>
+									<td style="padding-left:40px;vertical-align:top;">
+										{% if showtip %}
+					    			    {% if status %}
+					    			    <div class="alert alert-success">
+						    				<button type="button" class="close" data-dismiss="alert">&times;</button><span>注册成功</span>
+						    			</div>
+					    			    {% else %}
+					    			    <div class="alert alert-error">
+						    				<button type="button" class="close" data-dismiss="alert">&times;</button>
+						    				{% for m in msg%}
+						    				<span>{{m}}</span>
+						    				{% endfor %}
+						    			</div>
+					    			    {% endif %}
+					    			    {% endif %}
+									</td>
+								</tr>
+							</table>
+						    	
+						    </div>
+		    		</div>
+		    		
+		    	</div>
+		    </div>
+		    
+			{% include "footer.html" %}
+		</div>
+		
+		<script type="text/javascript">
+			//表单验证
+			var validate=function(){
+				if(document.getElementById("inputEmail").value==""){
+					alert("用户名不能为空");
+					return false;
+				}
+				if(document.getElementById("inputPassword").value==""){
+					alert("密码不能为空");
+					return false;
+				}
+				if(document.getElementById("inputPassword2").value==""){
+					alert("确认密码不能为空");
+					return false;
+				}
+				if(document.getElementById("inputPassword").value!=document.getElementById("inputPassword2").value){
+					alert("两次输入密码不一致");
+					return false;
+				}
+				return true;
+			}
+		</script>
+	</body>
+</html>
