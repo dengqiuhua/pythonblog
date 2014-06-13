@@ -2,7 +2,7 @@ python
 ======
 
 说明：
-  pynews是一个简单的博客系统，采用Django框架，数据库是mysql。
+  pynews是一个简单的博客系统，即，只有一个blog应用。系统采用Django框架，数据库是mysql。
   
   运行环境：apache，mysql。如果没有安装mysqldb模块，请先安装。
   
